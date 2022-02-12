@@ -1,0 +1,30 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""user without id"""
+type CreateUser {
+  fullname: String!
+  email: String!
+  password: String
+}
+
+"""user without id & password"""
+type GetUser {
+  fullname: String!
+  email: String!
+}
+
+type Query {
+  whoAmI: GetUser!
+}
+
+type Mutation {
+  createUser(data: CreateUserDto!): CreateUser!
+}
+
+input CreateUserDto {
+  fullname: String!
+  email: String!
+  password: String!
+}
