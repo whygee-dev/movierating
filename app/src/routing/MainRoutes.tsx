@@ -1,30 +1,41 @@
 import React, { useContext } from "react";
-import { View } from "react-native";
-import { NativeRouter, Route, Switch } from "react-router-native";
-import PrivateRoute from "../components/PrivateRoute";
 import { UserContext } from "../context/UserContext";
-import Account from "../screens/Account";
-import Home from "../screens/Home";
 import Login from "../screens/Login";
 import Register from "../screens/Register";
 import TabNavigation from "./TabNavigation";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { navigatorTheme } from "../theme/navigator";
+import Movie from "../components/Movie";
+import { MovieData } from "../screens/Home";
+
+const Stack = createNativeStackNavigator();
 
 type Props = {};
 
+export type StackParamList = {
+  Movie: { movie: MovieData };
+};
+
 const MainRoutes = (props: Props) => {
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   return (
-    <NativeRouter initialEntries={user ? ["/"] : ["/login"]}>
-      <Switch>
-        <PrivateRoute user={user} exact path="/" component={Home} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/register" component={Register} />
-        <PrivateRoute user={user} exact path="/account" component={Account} />
-      </Switch>
-
-      {user && <TabNavigation></TabNavigation>}
-    </NativeRouter>
+    <NavigationContainer theme={navigatorTheme}>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        {user ? (
+          <>
+            <Stack.Screen name="Tabbed" component={TabNavigation} />
+            <Stack.Screen name="Movie" component={Movie} />
+          </>
+        ) : (
+          <>
+            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="Register" component={Register} />
+          </>
+        )}
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 

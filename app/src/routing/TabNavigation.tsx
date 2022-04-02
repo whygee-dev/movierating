@@ -1,43 +1,65 @@
-import React from "react";
-import { View, StyleSheet, Dimensions, Image, Pressable, TouchableOpacity, Text } from "react-native";
-import { Link, useHistory, useLocation } from "react-router-native";
+import React, { useEffect, useState } from "react";
+import { Image, Keyboard } from "react-native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Home from "../screens/Home";
+import Account from "../screens/Account";
+
+const Tab = createBottomTabNavigator();
 
 const TabNavigation = () => {
-  const location = useLocation();
+  const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener("keyboardDidShow", () => {
+      setKeyboardVisible(true); // or some other action
+    });
+    const keyboardDidHideListener = Keyboard.addListener("keyboardDidHide", () => {
+      setKeyboardVisible(false); // or some other action
+    });
+
+    return () => {
+      keyboardDidHideListener.remove();
+      keyboardDidShowListener.remove();
+    };
+  }, []);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.nav}>
-        <Link to="/" underlayColor="rgba(0, 0, 0, 0)" style={styles.navItem}>
-          <Image source={location.pathname === "/" ? require("../../assets/icons/HomeActive.png") : require("../../assets/icons/Home.png")} />
-        </Link>
-        <Link to="/account" underlayColor="rgba(0, 0, 0, 0)" style={styles.navItem}>
-          <Image
-            source={location.pathname === "/account" ? require("../../assets/icons/ProfileActive.png") : require("../../assets/icons/Profile.png")}
-          />
-        </Link>
-      </View>
-    </View>
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        headerShown: false,
+        tabBarStyle: {
+          position: "absolute",
+          left: 0,
+          bottom: 0,
+          right: 0,
+          borderTopLeftRadius: 40,
+          borderTopRightRadius: 40,
+          elevation: 0,
+        },
+        tabBarShowLabel: false,
+        tabBarButton: isKeyboardVisible ? () => [] : undefined,
+      })}
+    >
+      <Tab.Screen
+        name="Home"
+        component={Home}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <Image source={focused ? require("../../assets/icons/HomeActive.png") : require("../../assets/icons/Home.png")} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Account"
+        component={Account}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <Image source={focused ? require("../../assets/icons/ProfileActive.png") : require("../../assets/icons/Profile.png")} />
+          ),
+        }}
+      />
+    </Tab.Navigator>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    marginTop: 25,
-    paddingVertical: 10,
-  },
-  navItem: {
-    flex: 1,
-    alignItems: "center",
-    padding: 10,
-  },
-  nav: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    position: "absolute",
-    top: Dimensions.get("window").height - 85,
-    left: 0,
-  },
-});
 
 export default TabNavigation;

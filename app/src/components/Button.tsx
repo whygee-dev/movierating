@@ -1,11 +1,11 @@
-import React, { Children } from "react";
-import { Text, StyleSheet, Pressable, GestureResponderEvent, ViewStyle } from "react-native";
+import React from "react";
+import { Text, StyleSheet, Pressable, GestureResponderEvent, ViewStyle, TextStyle } from "react-native";
 
 type Props = {
   onPress: (event: GestureResponderEvent) => void;
   title: string;
   containerStyle?: ViewStyle;
-  titleStyle?: ViewStyle;
+  titleStyle?: TextStyle;
   children?: any;
 };
 

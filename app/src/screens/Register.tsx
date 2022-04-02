@@ -3,14 +3,12 @@ import React from "react";
 import { TextInput, View, StyleSheet, Dimensions, TouchableOpacity, ActivityIndicator } from "react-native";
 import Text from "../components/Text";
 import Button from "../components/Button";
-import { useHistory } from "react-router-native";
 import * as yup from "yup";
 import { useMutation } from "@apollo/client";
 import { CREATE_USER } from "../graphql/mutations/user/CreaterUser";
 import { Ionicons } from "@expo/vector-icons";
 
-const Register = () => {
-  const router = useHistory();
+const Register = ({ navigation }: any) => {
   const [mutateFunction, { data, loading, error }] = useMutation(CREATE_USER);
 
   const registerValidationSchema = yup.object().shape({
@@ -29,11 +27,13 @@ const Register = () => {
   });
 
   const register = async (v: { email: string; password: string; fullname: string }) => {
-    await mutateFunction({ variables: { data: { fullname: v.fullname, password: v.password, email: v.email } } });
+    try {
+      await mutateFunction({ variables: { data: { fullname: v.fullname, password: v.password, email: v.email } } });
 
-    setTimeout(() => {
-      router.push("/login", { email: v.email });
-    }, 1000);
+      setTimeout(() => {
+        navigation.navigate("Login", { email: v.email });
+      }, 1000);
+    } catch (error) {}
   };
 
   return (
@@ -99,7 +99,7 @@ const Register = () => {
             {error && (
               <View style={{ width: "75%" }}>
                 <Text size={14} color="#FA58B6" style={{ textAlign: "center" }}>
-                  An unexpected error occured. Sorry for the inconvenience, please try again later.
+                  {error.message || "An unexpected error occured. Sorry for the inconvenience, please try again later."}
                 </Text>
               </View>
             )}
@@ -120,7 +120,7 @@ const Register = () => {
 
             <View style={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
               <Text size={16}>Already have an account ? </Text>
-              <TouchableOpacity onPress={(e) => router.push("/login")}>
+              <TouchableOpacity onPress={() => navigation.navigate("Login")}>
                 <Text size={16} color="#FA58B6" style={styles.signIn}>
                   Sign in
                 </Text>

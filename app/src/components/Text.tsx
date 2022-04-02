@@ -6,10 +6,19 @@ type Props = {
   color?: string;
   size?: number;
   style?: TextStyle;
+  numberOfLines?: number;
 };
 
 const _Text = (props: Props) => {
-  return <Text style={[{ color: props.color || "#fff", fontSize: props.size || 16 }, props.style]}>{props.children}</Text>;
+  return (
+    <Text
+      numberOfLines={props.numberOfLines || 1}
+      adjustsFontSizeToFit
+      style={[{ color: props.color || "#fff", fontSize: props.size || 16, fontFamily: "Poppins-Regular" }, props.style]}
+    >
+      {props.children}
+    </Text>
+  );
 };
 
 export default _Text;

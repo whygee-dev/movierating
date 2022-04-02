@@ -3,18 +3,17 @@ import React, { useContext, useState } from "react";
 import { TextInput, View, StyleSheet, Dimensions, TouchableOpacity, ActivityIndicator } from "react-native";
 import Text from "../components/Text";
 import Button from "../components/Button";
-import { useHistory } from "react-router-native";
 import * as yup from "yup";
 import axios from "axios";
 import { UserContext } from "../context/UserContext";
 import { API_URI } from "../tools/constants";
 import { save } from "../tools/store";
 
-export const Login = () => {
-  const router = useHistory();
+export const Login = ({ route, navigation }: any) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const userContext = useContext(UserContext);
+  const params = route.params;
 
   const loginValidationSchema = yup.object().shape({
     email: yup.string().email("Please enter valid email").required("Email Address is Required"),
@@ -28,13 +27,13 @@ export const Login = () => {
     try {
       setLoading(true);
       const data = await (await axios.post(`${API_URI}/login`, { email: v.email, password: v.password })).data;
-      userContext.setUser(data.user);
       await save("token", data.access_token);
-    } catch (error) {
-      setError(error as any);
-    } finally {
       setLoading(false);
-      if (!error) router.push("/");
+      userContext.setUser(data.user);
+    } catch (error) {
+      console.log(error);
+      setError(error as any);
+      setLoading(false);
     }
   };
 
@@ -42,17 +41,17 @@ export const Login = () => {
     <View>
       <View style={styles.textContainer}>
         <Text size={22} style={styles.textBold}>
-          {" "}
           Welcome !
         </Text>
         <Text size={16} color="rgba(255, 255, 255, 0.4)" style={styles.text}>
-          Please sign in your account{" "}
+          Please sign in your account
         </Text>
       </View>
 
       <Formik
         validationSchema={loginValidationSchema}
-        initialValues={{ email: (router.location.state as any)?.email || "", password: "" }}
+        enableReinitialize
+        initialValues={{ email: params?.email || "", password: "" }}
         onSubmit={login}
       >
         {({ handleChange, handleBlur, handleSubmit, values, errors, isValid, touched }) => (
@@ -88,12 +87,6 @@ export const Login = () => {
               </Text>
             )}
 
-            {error && (
-              <Text size={14} color="#FA58B6">
-                Your credentials are incorrect
-              </Text>
-            )}
-
             {!loading ? (
               <Button containerStyle={styles.button} onPress={handleSubmit as any} title="Sign in" />
             ) : (
@@ -104,7 +97,7 @@ export const Login = () => {
 
             <View style={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
               <Text size={16}>Don't have an account yet? </Text>
-              <TouchableOpacity onPress={(e) => router.push("/register")}>
+              <TouchableOpacity onPress={() => navigation.navigate("Register")}>
                 <Text size={16} color="#FA58B6" style={styles.signUp}>
                   Sign Up
                 </Text>

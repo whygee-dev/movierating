@@ -4,15 +4,14 @@ import { Image, View, Dimensions } from "react-native";
 import MainRoutes from "./src/routing/MainRoutes";
 import { ApolloClient, InMemoryCache, ApolloProvider, HttpLink, from } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
-import UserContextProvider, { UserContext } from "./src/context/UserContext";
+import UserContextProvider from "./src/context/UserContext";
 import { API_URI } from "./src/tools/constants";
 import Splash from "./src/components/Splash";
 import { setContext } from "@apollo/client/link/context";
 import { get } from "./src/tools/store";
+import MovieContextProvider from "./src/context/MovieContext";
 
 export default function App() {
-  console.log("api", API_URI);
-
   const httpLink = new HttpLink({
     uri: API_URI + "/graphql",
   });
@@ -61,9 +60,11 @@ export default function App() {
 
       <ApolloProvider client={client}>
         <UserContextProvider>
-          <Splash>
-            <MainRoutes></MainRoutes>
-          </Splash>
+          <MovieContextProvider>
+            <Splash>
+              <MainRoutes></MainRoutes>
+            </Splash>
+          </MovieContextProvider>
         </UserContextProvider>
       </ApolloProvider>
     </View>

@@ -19,9 +19,19 @@ export class UserService {
     const user = data;
     user.password = await bcrypt.hash(data.password, 11);
 
-    return this.prisma.user.create({
-      data: user,
-    });
+    try {
+      const result = await this.prisma.user.create({
+        data: user,
+      });
+
+      return result;
+    } catch (e) {
+      if (e instanceof Prisma.PrismaClientKnownRequestError) {
+        if (e.code === 'P2002') {
+          throw new Error('An account with this email already exists.');
+        }
+      }
+    }
   }
 
   async updateUser(params: {

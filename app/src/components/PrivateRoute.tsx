@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect, Route, useHistory } from "react-router-native";
+import { Redirect, Route } from "react-router-native";
 
 type Props = {
   component: () => JSX.Element;
