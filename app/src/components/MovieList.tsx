@@ -26,7 +26,6 @@ const MovieList = ({
   }, [data]);
 
   useEffect(() => {
-    console.log(index);
     if (movies.length > 0 && movies.length > index) {
       ref.current?.scrollToIndex({ animated: index !== 0, index });
     }
