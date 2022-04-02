@@ -35,8 +35,6 @@ const Movie: React.FC<Props> = ({ route, navigation }) => {
 
         <Text numberOfLines={Number.MAX_SAFE_INTEGER} size={18} style={styles.description}>
           {movie.overview}
-          {movie.overview}
-          {movie.overview}
         </Text>
       </ScrollView>
 
@@ -81,6 +79,7 @@ const styles = StyleSheet.create({
     textAlign: "justify",
     alignSelf: "center",
     marginTop: 30,
+    paddingBottom: 50,
   },
   addButtonBackdrop: {
     position: "absolute",
