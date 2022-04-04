@@ -11,7 +11,7 @@ import { useMutation } from "@apollo/client";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 const ValidationSchema = yup.object().shape({
-  review: yup.string().min(10, "Minimum 10 characters").max(250, "Maximimum 250 characters").required("A review is required"),
+  review: yup.string().min(10, "Minimum 10 characters").max(250, "Maximum 250 characters").required("A review is required"),
   rating: yup.number().typeError("Must be a number").min(0, "Minimum rating is 0").max(10, "Maximum rating is 10").required("A rating is required"),
 });
 
