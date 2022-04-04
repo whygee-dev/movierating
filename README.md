@@ -53,3 +53,7 @@ nestjs .env file
 ![App Screenshot](https://i.ibb.co/fNdfGTJ/Screenshot-4.png)
 ![App Screenshot](https://i.ibb.co/KV9vZmk/Screenshot-5.png)
 ![App Screenshot](https://i.ibb.co/Y3q8F3n/Screenshot-6.png)
+## Disclaimer
+
+** The project was not tested with macOS / iOS therefore unforeseen bugs can occur **
+
