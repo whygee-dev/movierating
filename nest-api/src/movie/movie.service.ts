@@ -8,7 +8,7 @@ export class MovieService {
   constructor(private prisma: PrismaService) {}
 
   async createMovie(
-    data: Omit<Prisma.MovieCreateInput, 'user'>,
+    data: Omit<Prisma.MovieCreateInput, 'user' | 'title' | 'posterPath'>,
     userEmail: string,
   ): Promise<Movie> {
     try {
@@ -26,7 +26,12 @@ export class MovieService {
       }
 
       return this.prisma.movie.create({
-        data: { ...data, user: { connect: { email: userEmail } } },
+        data: {
+          ...data,
+          title: tmdbMovie.original_title,
+          posterPath: tmdbMovie.poster_path,
+          user: { connect: { email: userEmail } },
+        },
       });
     } catch (error) {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
