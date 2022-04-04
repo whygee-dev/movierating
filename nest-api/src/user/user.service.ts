@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Prisma, User } from '@prisma/client';
+import { Movie, Prisma, User } from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';
 import * as bcrypt from 'bcrypt';
 
@@ -49,5 +49,11 @@ export class UserService {
     return this.prisma.user.delete({
       where,
     });
+  }
+
+  async getMovies(userId: number): Promise<{ movies: Movie[] }> {
+    const movies = await this.prisma.movie.findMany({ where: { userId } });
+
+    return { movies };
   }
 }

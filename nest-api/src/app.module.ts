@@ -8,6 +8,7 @@ import { UserService } from './user/user.service';
 import { PrismaModule } from 'nestjs-prisma';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
+import { MovieModule } from './movie/movie.module';
 import configuration from './config/configuration';
 
 @Module({
@@ -17,6 +18,7 @@ import configuration from './config/configuration';
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: 'src/graphql/schema.gql',
+      debug: process.env.ENV === 'DEV',
     }),
     PrismaModule.forRoot({
       isGlobal: true,
@@ -25,6 +27,7 @@ import configuration from './config/configuration';
       },
     }),
     AuthModule,
+    MovieModule,
   ],
   controllers: [AppController],
   providers: [AppService, UserService],

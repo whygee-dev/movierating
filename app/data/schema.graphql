@@ -2,29 +2,59 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-"""user without id"""
+"""
+user without id
+"""
 type CreateUser {
   fullname: String!
   email: String!
   password: String
 }
 
-"""user without id & password"""
+"""
+movie without id & user
+"""
+type GetMovie {
+  review: String!
+  rating: Float!
+  tmdbId: Float!
+}
+
+"""
+user movies
+"""
+type GetMovies {
+  movies: [GetMovie!]!
+}
+
+"""
+user without password
+"""
 type GetUser {
+  id: Float!
   fullname: String!
   email: String!
 }
 
 type Query {
   whoAmI: GetUser!
+  getMovies: GetMovies!
 }
 
 type Mutation {
   createUser(data: CreateUserDto!): CreateUser!
+  updateUser(data: CreateUserDto!): GetUser!
+  create(data: CreateMovieDto!): GetMovie!
 }
 
 input CreateUserDto {
   fullname: String!
   email: String!
   password: String!
+}
+
+input CreateMovieDto {
+  review: String!
+  rating: Float!
+  tmdbId: Float!
 }

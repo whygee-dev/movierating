@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useLazyQuery } from "@apollo/client";
-import { WHO_AMI } from "../graphql/mutations/user/WhoAmI";
+import { WHO_AMI } from "../graphql/queries/user/WhoAmI";
 import { UserContext } from "../context/UserContext";
 import AppLoading from "expo-app-loading";
 import * as Font from "expo-font";
@@ -22,10 +22,6 @@ const Splash = ({ children }: { children?: any }) => {
     setUser(user);
     setGenres(genres);
   };
-
-  if (error) {
-    console.log("Couldn't connect to API. Please make sure you are running nestjs.");
-  }
 
   if (!appIsReady) {
     return <AppLoading startAsync={startAsync} onFinish={() => setAppIsReady(true)} onError={console.warn} />;

@@ -69,7 +69,7 @@ const MovieList = ({
 
   return (
     <View style={{ width: "100%", position: "relative", zIndex: 2, top: Dimensions.get("window").height / 3.25 }}>
-      {data?.length === 0 ? (
+      {data?.length === 0 && !loading ? (
         <Text size={22} style={{ alignSelf: "center" }}>
           No results found :(
         </Text>
