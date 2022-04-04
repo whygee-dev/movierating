@@ -6,6 +6,9 @@ export const GET_MOVIES = gql`
       movies {
         review
         rating
+        title
+        posterPath
+        backdropPath
         tmdbId
       }
     }

@@ -17,6 +17,8 @@ movie without id & user
 type GetMovie {
   review: String!
   rating: Float!
+  title: String!
+  posterPath: String!
   tmdbId: Float!
 }
 

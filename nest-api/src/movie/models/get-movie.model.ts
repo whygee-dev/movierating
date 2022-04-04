@@ -9,5 +9,14 @@ export class GetMovie {
   rating: number;
 
   @Field()
+  title: string;
+
+  @Field()
+  posterPath: string;
+
+  @Field()
+  backdropPath: string;
+
+  @Field()
   tmdbId: number;
 }

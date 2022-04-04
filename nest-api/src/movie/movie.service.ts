@@ -8,7 +8,10 @@ export class MovieService {
   constructor(private prisma: PrismaService) {}
 
   async createMovie(
-    data: Omit<Prisma.MovieCreateInput, 'user' | 'title' | 'posterPath'>,
+    data: Omit<
+      Prisma.MovieCreateInput,
+      'user' | 'title' | 'posterPath' | 'backdropPath'
+    >,
     userEmail: string,
   ): Promise<Movie> {
     try {
@@ -30,6 +33,7 @@ export class MovieService {
           ...data,
           title: tmdbMovie.original_title,
           posterPath: tmdbMovie.poster_path,
+          backdropPath: tmdbMovie.backdrop_path,
           user: { connect: { email: userEmail } },
         },
       });

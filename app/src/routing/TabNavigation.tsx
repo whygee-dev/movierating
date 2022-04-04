@@ -3,6 +3,7 @@ import { Image, Keyboard } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../screens/Home";
 import Account from "../screens/Account";
+import UserMovies from "../screens/UserMovies";
 
 const Tab = createBottomTabNavigator();
 
@@ -46,6 +47,16 @@ const TabNavigation = () => {
         options={{
           tabBarIcon: ({ focused }) => (
             <Image source={focused ? require("../../assets/icons/HomeActive.png") : require("../../assets/icons/Home.png")} />
+          ),
+        }}
+      />
+
+      <Tab.Screen
+        name="UserMovies"
+        component={UserMovies}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <Image width={16} height={18} source={focused ? require("../../assets/icons/ListActive.png") : require("../../assets/icons/List.png")} />
           ),
         }}
       />

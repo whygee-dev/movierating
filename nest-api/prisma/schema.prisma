@@ -25,6 +25,7 @@ model Movie {
   tmdbId        Int
   title         String
   posterPath    String
+  backdropPath  String
   user          User    @relation(fields: [userId], references: [id])
   userId        Int
 }
