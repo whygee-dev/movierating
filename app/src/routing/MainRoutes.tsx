@@ -8,6 +8,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { navigatorTheme } from "../theme/navigator";
 import Movie from "../components/Movie";
 import { MovieData } from "../screens/Home";
+import AddMovie from "../components/AddMovie";
 
 const Stack = createNativeStackNavigator();
 
@@ -27,6 +28,7 @@ const MainRoutes = (props: Props) => {
           <>
             <Stack.Screen name="Tabbed" component={TabNavigation} />
             <Stack.Screen name="Movie" component={Movie} />
+            <Stack.Screen name="AddMovie" component={AddMovie} />
           </>
         ) : (
           <>

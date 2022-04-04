@@ -1,16 +1,12 @@
 import React from "react";
-import { View, StyleSheet, Image, Dimensions, ScrollView, Pressable } from "react-native";
+import { View, StyleSheet, Image, Dimensions, ScrollView } from "react-native";
 import { POSTER_BASE } from "../tools/constants";
 import MovieOverview from "./MovieOverview";
 import Text from "./Text";
 import Button from "./Button";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { StackParamList } from "../routing/MainRoutes";
 import BackButton from "./BackButton";
 
-type Props = NativeStackScreenProps<StackParamList, "Movie">;
-
-const Movie: React.FC<Props> = ({ route, navigation }) => {
+const Movie = ({ route, navigation }: any) => {
   const movie = route?.params?.movie;
 
   if (!movie) {
@@ -19,6 +15,10 @@ const Movie: React.FC<Props> = ({ route, navigation }) => {
 
     return <></>;
   }
+
+  const handleAddMovie = () => {
+    navigation.navigate("AddMovie", { movie });
+  };
 
   return (
     <View style={styles.container}>
@@ -39,7 +39,7 @@ const Movie: React.FC<Props> = ({ route, navigation }) => {
       </ScrollView>
 
       <View style={styles.addButtonBackdrop}>
-        <Button containerStyle={styles.addButton} titleStyle={styles.addButtonTitle} title="ADD TO LIST" onPress={() => {}}></Button>
+        <Button containerStyle={styles.addButton} titleStyle={styles.addButtonTitle} title="ADD TO LIST" onPress={handleAddMovie}></Button>
       </View>
 
       <View style={styles.imageFilter}></View>
