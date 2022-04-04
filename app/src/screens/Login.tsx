@@ -11,7 +11,7 @@ import { save } from "../tools/store";
 
 export const Login = ({ route, navigation }: any) => {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState("");
   const userContext = useContext(UserContext);
   const params = route.params;
 
@@ -31,8 +31,7 @@ export const Login = ({ route, navigation }: any) => {
       setLoading(false);
       userContext.setUser(data.user);
     } catch (error) {
-      console.log(error);
-      setError(error as any);
+      setError("Invalid credentials");
       setLoading(false);
     }
   };
@@ -84,6 +83,12 @@ export const Login = ({ route, navigation }: any) => {
             {errors.password && touched.password && (
               <Text size={14} color="#FA58B6">
                 {errors.password}
+              </Text>
+            )}
+
+            {error !== "" && (
+              <Text size={14} color="#FA58B6">
+                {error}
               </Text>
             )}
 

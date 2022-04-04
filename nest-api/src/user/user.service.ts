@@ -39,8 +39,11 @@ export class UserService {
     data: Prisma.UserUpdateInput;
   }): Promise<User> {
     const { where, data } = params;
+    const user = data;
+    user.password = await bcrypt.hash(data.password as string, 11);
+
     return this.prisma.user.update({
-      data,
+      data: user,
       where,
     });
   }
