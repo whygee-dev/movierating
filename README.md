@@ -51,6 +51,15 @@ If your app can't connect to the API, manually put the api uri in `app.json` in 
 ![App Screenshot](https://i.ibb.co/KV9vZmk/Screenshot-5.png)
 ![App Screenshot](https://i.ibb.co/Y3q8F3n/Screenshot-6.png)
 
+## Roadmap
+
+- [x] Register, Login
+- [x] Discover, search & filter movies
+- [x] Add a movie to list with rating & short review
+- [x] Update user info
+- [ ] Discover other people's reviewed movies, like a review
+- [ ] Stricter react navigation types
+
 ## Disclaimer
 
-** The project was not tested with macOS / iOS therefore unforeseen bugs can occur **
+** The project was not tested with macOS / iOS therefore unforeseen bugs can occur, feel free to open issues **
