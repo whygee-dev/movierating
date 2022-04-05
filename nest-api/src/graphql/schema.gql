@@ -40,6 +40,8 @@ type Mutation {
   createUser(data: CreateUserDto!): CreateUser!
   updateUser(data: CreateUserDto!): GetUser!
   create(data: CreateMovieDto!): GetMovie!
+  update(data: CreateMovieDto!): GetMovie!
+  delete(data: DeleteMovieDto!): GetMovie!
 }
 
 input CreateUserDto {
@@ -51,5 +53,9 @@ input CreateUserDto {
 input CreateMovieDto {
   review: String!
   rating: Float!
+  tmdbId: Float!
+}
+
+input DeleteMovieDto {
   tmdbId: Float!
 }

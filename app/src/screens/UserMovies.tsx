@@ -31,6 +31,10 @@ const UserMovies = ({ navigation }: any) => {
     return unsubscribe;
   }, [navigation]);
 
+  const handleMoviePress = (movie: MovieData) => {
+    navigation.navigate("EditMovie", { movie });
+  };
+
   return (
     <View>
       {!loading && movies.length === 0 ? (
@@ -54,14 +58,14 @@ const UserMovies = ({ navigation }: any) => {
         <ScrollView showsVerticalScrollIndicator style={styles.scrollView}>
           {movies.map((movie) => {
             return (
-              <TouchableOpacity onPress={() => console.log("yo")}>
-                <View key={movie.tmdbId} style={styles.movie}>
+              <Pressable key={movie.tmdbId} onPress={() => handleMoviePress(movie)}>
+                <View style={styles.movie}>
                   <View style={styles.posterContainer}>
                     <Image source={{ uri: POSTER_BASE + movie.posterPath }} resizeMode="contain" style={styles.poster}></Image>
 
                     <View style={styles.buttonALike}>
                       <Text style={styles.rating} color="#000">
-                        {movie.rating}
+                        {movie.rating.toFixed(1)}
                         <Text color="#000" size={10}>
                           /10
                         </Text>
@@ -82,7 +86,7 @@ const UserMovies = ({ navigation }: any) => {
                   <View style={styles.imageFilter}></View>
                   <Image source={{ uri: POSTER_BASE + movie.backdropPath }} resizeMode="cover" style={styles.backdrop}></Image>
                 </View>
-              </TouchableOpacity>
+              </Pressable>
             );
           })}
         </ScrollView>

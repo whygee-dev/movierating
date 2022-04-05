@@ -9,6 +9,7 @@ import { navigatorTheme } from "../theme/navigator";
 import Movie from "../components/Movie";
 import { MovieData } from "../screens/Home";
 import AddMovie from "../components/AddMovie";
+import EditMovie from "../components/EditMovie";
 
 const Stack = createNativeStackNavigator();
 
@@ -29,6 +30,7 @@ const MainRoutes = (props: Props) => {
             <Stack.Screen name="Tabbed" component={TabNavigation} />
             <Stack.Screen name="Movie" component={Movie} />
             <Stack.Screen name="AddMovie" component={AddMovie} />
+            <Stack.Screen name="EditMovie" component={EditMovie} />
           </>
         ) : (
           <>

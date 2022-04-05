@@ -55,7 +55,10 @@ export class UserService {
   }
 
   async getMovies(userId: number): Promise<{ movies: Movie[] }> {
-    const movies = await this.prisma.movie.findMany({ where: { userId } });
+    const movies = await this.prisma.movie.findMany({
+      where: { userId },
+      orderBy: { rating: 'desc' },
+    });
 
     return { movies };
   }

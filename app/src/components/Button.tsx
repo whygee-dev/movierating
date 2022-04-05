@@ -4,7 +4,7 @@ import { Text, StyleSheet, Pressable, GestureResponderEvent, ViewStyle, TextStyl
 type Props = {
   onPress: (event: GestureResponderEvent) => void;
   title: string;
-  containerStyle?: ViewStyle;
+  containerStyle?: ViewStyle | ViewStyle[];
   titleStyle?: TextStyle;
   children?: any;
 };
@@ -12,8 +12,10 @@ type Props = {
 export default function Button(props: Props) {
   const { onPress, title = "Save" } = props;
 
+  const containerStyles = Array.isArray(props.containerStyle) ? [styles.button, ...props.containerStyle] : [styles.button, props.containerStyle];
+
   return (
-    <Pressable style={[styles.button, props.containerStyle]} onPress={onPress}>
+    <Pressable style={containerStyles} onPress={onPress}>
       <Text style={[styles.text, props.titleStyle]}>{title}</Text>
       {props.children}
     </Pressable>

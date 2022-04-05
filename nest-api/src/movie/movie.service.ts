@@ -49,4 +49,47 @@ export class MovieService {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
     }
   }
+
+  async updateMovie(
+    data: Omit<
+      Prisma.MovieCreateInput,
+      'user' | 'title' | 'posterPath' | 'backdropPath'
+    >,
+    userId: number,
+  ): Promise<Movie> {
+    try {
+      const movie = await this.prisma.movie.findFirst({
+        where: { userId, tmdbId: data.tmdbId },
+      });
+
+      if (!movie) {
+        throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+      }
+
+      return this.prisma.movie.update({
+        where: { id: movie.id },
+        data: { rating: data.rating, review: data.review },
+      });
+    } catch (error) {
+      throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+    }
+  }
+
+  async deleteMovie(tmdbId: number, userId: number): Promise<Movie> {
+    try {
+      const movie = await this.prisma.movie.findFirst({
+        where: { userId, tmdbId },
+      });
+
+      if (!movie) {
+        throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+      }
+
+      return this.prisma.movie.delete({
+        where: { id: movie.id },
+      });
+    } catch (error) {
+      throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+    }
+  }
 }

@@ -20,7 +20,7 @@ model User {
 
 model Movie {
   id            Int     @default(autoincrement()) @id
-  rating        Int
+  rating        Float
   review        String
   tmdbId        Int
   title         String
