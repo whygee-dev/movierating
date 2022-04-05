@@ -99,13 +99,8 @@ const MovieList = ({
           ></FlatList>
 
           {loading && (
-            <View
-              style={{
-                position: "relative",
-                top: 10,
-              }}
-            >
-              <ActivityIndicator animating size={65} color="#FA58B6"></ActivityIndicator>
+            <View>
+              <ActivityIndicator animating size={50} color="#FA58B6"></ActivityIndicator>
             </View>
           )}
         </View>

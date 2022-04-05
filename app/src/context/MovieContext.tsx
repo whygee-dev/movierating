@@ -5,9 +5,16 @@ export type Genre = {
   name: string;
 };
 
-export const MovieContext = React.createContext({ genres: undefined, setGenres: (g: Genre[]) => {} } as {
+export const MovieContext = React.createContext({
+  genres: undefined,
+  setGenres: (g: Genre[]) => {},
+  moviesList: [],
+  setMoviesList: (l: number[]) => {},
+} as {
   genres?: Genre[];
   setGenres: (g: Genre[]) => any;
+  moviesList: number[];
+  setMoviesList: (l: number[]) => any;
 });
 
 const MovieContextProvider = ({ children }: { children: any }) => {
@@ -16,7 +23,15 @@ const MovieContextProvider = ({ children }: { children: any }) => {
     setGenres(g);
   };
 
-  return <MovieContext.Provider value={{ genres, setGenres: _setGenres }}>{children}</MovieContext.Provider>;
+  const [moviesList, setMovieList] = useState<number[]>([]);
+
+  const _setMovieList = (l: number[]) => {
+    setMovieList(l);
+  };
+
+  return (
+    <MovieContext.Provider value={{ genres, setGenres: _setGenres, moviesList, setMoviesList: _setMovieList }}>{children}</MovieContext.Provider>
+  );
 };
 
 export default MovieContextProvider;

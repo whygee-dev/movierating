@@ -1,6 +1,6 @@
 import { Formik } from "formik";
-import React, { useState } from "react";
-import { Dimensions, View, StyleSheet, TextInput, Image, ActivityIndicator } from "react-native";
+import React, { useContext, useState } from "react";
+import { Dimensions, View, StyleSheet, TextInput, Image, ActivityIndicator, Alert } from "react-native";
 import Text from "./Text";
 import Button from "./Button";
 import * as yup from "yup";
@@ -9,6 +9,7 @@ import BackButton from "./BackButton";
 import { CREATE_MOVIE } from "../graphql/mutations/movie/CreateMovie";
 import { useMutation } from "@apollo/client";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { MovieContext } from "../context/MovieContext";
 
 const ValidationSchema = yup.object().shape({
   review: yup.string().min(10, "Minimum 10 characters").max(250, "Maximum 250 characters").required("A review is required"),
@@ -18,6 +19,7 @@ const ValidationSchema = yup.object().shape({
 const AddMovie = ({ route, navigation }: any) => {
   const movie = route?.params?.movie;
   const [mutateFunction, { data, loading, error }] = useMutation(CREATE_MOVIE);
+  const { setMoviesList, moviesList } = useContext(MovieContext);
 
   if (!movie || !movie.id) {
     //@ts-ignore
@@ -27,7 +29,13 @@ const AddMovie = ({ route, navigation }: any) => {
   }
 
   const addMovie = async (v: { rating: string; review: string }) => {
-    await mutateFunction({ variables: { data: { rating: +v.rating, review: v.review, tmdbId: movie.id } } });
+    try {
+      await mutateFunction({ variables: { data: { rating: +v.rating, review: v.review, tmdbId: movie.id } } });
+      setMoviesList([...moviesList, movie.id]);
+    } catch (error) {
+      Alert.alert("You've already added this movie to your list, if you think this is an error please reload the app");
+    }
+
     setTimeout(() => {
       navigation.navigate("Home");
     }, 2000);

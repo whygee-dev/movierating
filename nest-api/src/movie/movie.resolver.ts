@@ -14,6 +14,6 @@ export class MovieResolver {
   @Mutation((returns) => GetMovie)
   @UseGuards(GqlAuthGuard)
   create(@CurrentUser() user: GetUser, @Args('data') data: CreateMovieDto) {
-    return this.movieService.createMovie(data, user.email);
+    return this.movieService.createMovie(data, user.id);
   }
 }

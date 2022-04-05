@@ -7,12 +7,14 @@ import * as Font from "expo-font";
 import { MovieContext } from "../context/MovieContext";
 import axios from "axios";
 import { genUrl } from "../tools/TMDB/generator";
+import { GET_MOVIES } from "../graphql/queries/user/GetMovies";
 
 const Splash = ({ children }: { children?: any }) => {
   const [appIsReady, setAppIsReady] = useState(false);
   const { setUser } = useContext(UserContext);
-  const { setGenres } = useContext(MovieContext);
+  const { setGenres, setMoviesList } = useContext(MovieContext);
   const [getUser, { error }] = useLazyQuery(WHO_AMI);
+  const [getMovies] = useLazyQuery(GET_MOVIES);
   const url = genUrl("genre/movie/list");
 
   const startAsync = async () => {
@@ -21,6 +23,11 @@ const Splash = ({ children }: { children?: any }) => {
     await Font.loadAsync({ "Poppins-Regular": require("../../assets/fonts/Poppins-Regular.ttf") });
     setUser(user);
     setGenres(genres);
+
+    if (user) {
+      const movies = await (await getMovies())?.data?.getMovies?.movies;
+      setMoviesList(movies.map((m: any) => m.tmdbId));
+    }
   };
 
   if (!appIsReady) {

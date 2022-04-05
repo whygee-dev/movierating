@@ -12,7 +12,7 @@ export class MovieService {
       Prisma.MovieCreateInput,
       'user' | 'title' | 'posterPath' | 'backdropPath'
     >,
-    userEmail: string,
+    userId: number,
   ): Promise<Movie> {
     try {
       const tmdbMovie = (
@@ -28,13 +28,21 @@ export class MovieService {
         throw Error('Invalid tmdb id');
       }
 
+      const existing = await this.prisma.movie.findFirst({
+        where: { userId, tmdbId: data.tmdbId },
+      });
+
+      if (existing) {
+        throw Error("Movie already exist in user's list");
+      }
+
       return this.prisma.movie.create({
         data: {
           ...data,
           title: tmdbMovie.original_title,
           posterPath: tmdbMovie.poster_path,
           backdropPath: tmdbMovie.backdrop_path,
-          user: { connect: { email: userEmail } },
+          user: { connect: { id: userId } },
         },
       });
     } catch (error) {

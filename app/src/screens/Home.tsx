@@ -143,43 +143,6 @@ const Home = ({ navigation }: any) => {
 };
 
 const styles = StyleSheet.create({
-  addButton: {
-    backgroundColor: "#F00100",
-    alignSelf: "center",
-    width: "33%",
-    borderRadius: 12,
-    paddingVertical: 8,
-    paddingHorizontal: 0,
-    marginTop: 20,
-  },
-  addButtonTitle: {
-    fontSize: 14,
-  },
-  buttonALike: {
-    backgroundColor: "rgba(0, 0, 0, 0.75)",
-    alignSelf: "flex-start",
-    paddingVertical: 15,
-    paddingHorizontal: 10,
-    borderRadius: 12,
-  },
-  orange: {
-    backgroundColor: "#FBBF0F",
-  },
-  tags: {
-    display: "flex",
-    justifyContent: "space-evenly",
-    flexDirection: "row",
-    marginTop: 10,
-  },
-  currentMovie: {
-    position: "relative",
-    top: Dimensions.get("window").height / 5,
-    backgroundColor: "transparent",
-    zIndex: 2,
-  },
-  genres: {
-    marginTop: 10,
-  },
   container: {
     width: "100%",
     height: "100%",

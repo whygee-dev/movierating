@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, StyleSheet, Image, Dimensions, ScrollView } from "react-native";
 import { POSTER_BASE } from "../tools/constants";
 import MovieOverview from "./MovieOverview";
 import Text from "./Text";
 import Button from "./Button";
 import BackButton from "./BackButton";
+import { MovieContext } from "../context/MovieContext";
 
 const Movie = ({ route, navigation }: any) => {
   const movie = route?.params?.movie;
+  const { moviesList } = useContext(MovieContext);
 
   if (!movie) {
     //@ts-ignore
@@ -38,9 +40,11 @@ const Movie = ({ route, navigation }: any) => {
         </Text>
       </ScrollView>
 
-      <View style={styles.addButtonBackdrop}>
-        <Button containerStyle={styles.addButton} titleStyle={styles.addButtonTitle} title="ADD TO LIST" onPress={handleAddMovie}></Button>
-      </View>
+      {!moviesList.includes(movie.id) && (
+        <View style={styles.addButtonBackdrop}>
+          <Button containerStyle={styles.addButton} titleStyle={styles.addButtonTitle} title="ADD TO LIST" onPress={handleAddMovie}></Button>
+        </View>
+      )}
 
       <View style={styles.imageFilter}></View>
       <Image source={{ uri: POSTER_BASE + movie.backdrop_path }} resizeMode="cover" style={styles.backdrop}></Image>
