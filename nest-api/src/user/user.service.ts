@@ -29,6 +29,8 @@ export class UserService {
       if (e instanceof Prisma.PrismaClientKnownRequestError) {
         if (e.code === 'P2002') {
           throw new Error('An account with this email already exists.');
+        } else {
+          throw new Error('An unexpected error occured');
         }
       }
     }
@@ -40,12 +42,28 @@ export class UserService {
   }): Promise<User> {
     const { where, data } = params;
     const user = data;
-    user.password = await bcrypt.hash(data.password as string, 11);
 
-    return this.prisma.user.update({
-      data: user,
-      where,
-    });
+    if (user.password) {
+      user.password = await bcrypt.hash(data.password as string, 11);
+    }
+
+    try {
+      const result = await this.prisma.user.update({
+        data: user,
+        where,
+      });
+
+      return result;
+    } catch (e) {
+      if (e instanceof Prisma.PrismaClientKnownRequestError) {
+        console.log(e);
+        if (e.code === 'P2002') {
+          throw new Error('An account with this email already exists.');
+        } else {
+          throw new Error('An unexpected error occured');
+        }
+      }
+    }
   }
 
   async deleteUser(where: Prisma.UserWhereUniqueInput): Promise<User> {

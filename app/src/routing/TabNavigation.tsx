@@ -12,10 +12,10 @@ const TabNavigation = () => {
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener("keyboardDidShow", () => {
-      setKeyboardVisible(true); // or some other action
+      setKeyboardVisible(true);
     });
     const keyboardDidHideListener = Keyboard.addListener("keyboardDidHide", () => {
-      setKeyboardVisible(false); // or some other action
+      setKeyboardVisible(false);
     });
 
     return () => {
@@ -60,6 +60,7 @@ const TabNavigation = () => {
           ),
         }}
       />
+
       <Tab.Screen
         name="Account"
         component={Account}

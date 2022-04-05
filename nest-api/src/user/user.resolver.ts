@@ -2,7 +2,8 @@ import { UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { GqlAuthGuard } from 'src/auth/jwt-gql-auth.guard';
 import { CurrentUser } from 'src/graphql/current-user.decorator';
-import { CreateUserDto } from './dto/createUser.dto';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { CreateUser } from './models/create-user.model';
 import { GetMovies } from './models/get-movies.model';
 import { GetUser } from './models/get-user.model';
@@ -26,7 +27,7 @@ export class UserResolver {
 
   @Mutation((returns) => GetUser)
   @UseGuards(GqlAuthGuard)
-  updateUser(@CurrentUser() user: GetUser, @Args('data') data: CreateUserDto) {
+  updateUser(@CurrentUser() user: GetUser, @Args('data') data: UpdateUserDto) {
     return this.userService.updateUser({ where: { id: user.id }, data });
   }
 

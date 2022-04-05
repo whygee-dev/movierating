@@ -38,7 +38,7 @@ type Query {
 
 type Mutation {
   createUser(data: CreateUserDto!): CreateUser!
-  updateUser(data: CreateUserDto!): GetUser!
+  updateUser(data: UpdateUserDto!): GetUser!
   create(data: CreateMovieDto!): GetMovie!
   update(data: CreateMovieDto!): GetMovie!
   delete(data: DeleteMovieDto!): GetMovie!
@@ -48,6 +48,12 @@ input CreateUserDto {
   fullname: String!
   email: String!
   password: String!
+}
+
+input UpdateUserDto {
+  fullname: String
+  email: String
+  password: String
 }
 
 input CreateMovieDto {
