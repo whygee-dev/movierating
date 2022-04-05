@@ -27,8 +27,7 @@
       "favicon": "./assets/favicon.png"
     },
     "extra": {
-      "api": "",
-      "tmdbKey": "a0d9680580ca47a8574f242332534198"
+      "api": ""
     }
   }
 }
