@@ -1,16 +1,12 @@
-
 # Movie rating
 
-A React Native, NestJS, GraphQL & Prisma project. 
+A React Native, NestJS, GraphQL & Prisma project.
 
 Discover movies, add your favorite to your list with a review & rating, find out other people's list.
 
-
-
-
 ## Installation
 
-Install dependencies 
+Install dependencies
 
 ```bash
   cd app
@@ -18,7 +14,7 @@ Install dependencies
   cd ../nest-api
   npm install // or yarn
 ```
-    
+
 Make sure you are running a postgresql server locally and create a database named movierating then:
 
 ```bash
@@ -30,12 +26,11 @@ The 2 above commands will push migrations to your database and generate js artif
 
 ## Environment Variables
 
-To run this project, you will need to add the following environment variables to your .env file 
+To run this project, you will need to add the following environment variables to your .env file
 
 expo app .env file
 
 `TMDB_KEY=[YOUR TMDB API KEY]`
-
 
 nestjs .env file
 
@@ -46,6 +41,8 @@ nestjs .env file
 `ENV=DEV`
 `TMDB_KEY=[YOUR TMDB API KEY]`
 
+If your app can't connect to the API, manually put the api uri in `app.json` in extra.api field for example: `"extra": { "api": "http://localhost:5000" }`
+
 ## Screenshots
 
 ![App Screenshot](https://i.ibb.co/RYgpdjC/Screenshot-8.png)
@@ -53,7 +50,7 @@ nestjs .env file
 ![App Screenshot](https://i.ibb.co/fNdfGTJ/Screenshot-4.png)
 ![App Screenshot](https://i.ibb.co/KV9vZmk/Screenshot-5.png)
 ![App Screenshot](https://i.ibb.co/Y3q8F3n/Screenshot-6.png)
+
 ## Disclaimer
 
 ** The project was not tested with macOS / iOS therefore unforeseen bugs can occur **
-
