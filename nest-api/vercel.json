@@ -1,9 +1,9 @@
 {
   "version": 2,
   "env": {
-    "DATABASE_URL": "@DATABASE_URL",
-    "jwtSecret": "@jwtSecret",
-    "TMDB_KEY": "@TMDB_KEY"
+    "DATABASE_URL": "@database_url",
+    "jwtSecret": "@jwt_secret",
+    "TMDB_KEY": "@tmdb_key"
   },
   "builds": [
     {
