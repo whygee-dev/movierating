@@ -21,13 +21,17 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "icon": "./assets/icon.png"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
       "api": ""
-    }
+    },
+    "title": "Movie Rating",
+    "description": "A React Native, NestJS, GraphQL & Prisma project. Discover movies, add your favorite to your list with a review & rating, find out other people's list.",
+    "githubUrl": "https://github.com/whygee-dev/movierating"
   }
 }
