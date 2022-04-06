@@ -1,11 +1,15 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { Prisma, Movie } from '@prisma/client';
 import axios from 'axios';
 import { PrismaService } from 'nestjs-prisma';
 
 @Injectable()
 export class MovieService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private configService: ConfigService,
+  ) {}
 
   async createMovie(
     data: Omit<
@@ -20,7 +24,7 @@ export class MovieService {
           'https://api.themoviedb.org/3/movie/' +
             data.tmdbId +
             '?api_key=' +
-            process.env.TMDB_KEY,
+            this.configService.get('TMDB_KEY'),
         )
       ).data;
 
@@ -36,6 +40,8 @@ export class MovieService {
         throw Error("Movie already exist in user's list");
       }
 
+      console.log(userId);
+
       return this.prisma.movie.create({
         data: {
           ...data,
@@ -46,6 +52,7 @@ export class MovieService {
         },
       });
     } catch (error) {
+      console.log(error);
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
     }
   }
