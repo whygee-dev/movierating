@@ -40,8 +40,6 @@ export class MovieService {
         throw Error("Movie already exist in user's list");
       }
 
-      console.log(userId);
-
       return this.prisma.movie.create({
         data: {
           ...data,
@@ -52,7 +50,6 @@ export class MovieService {
         },
       });
     } catch (error) {
-      console.log(error);
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
     }
   }
