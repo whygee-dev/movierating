@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 20,
     width: "95%",
-    height: 170,
+    height: Math.min(200, window.height / 4),
     marginHorizontal: "2.5%",
     marginVertical: 10,
     borderRadius: 12,
