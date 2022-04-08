@@ -18,16 +18,21 @@ const Splash = ({ children }: { children?: any }) => {
   const url = genUrl("genre/movie/list");
 
   const startAsync = async () => {
-    const user = await (await getUser())?.data?.whoAmI;
-    const genres = await (await axios.get(url)).data?.genres;
-    await Font.loadAsync({ "Poppins-Regular": require("../../assets/fonts/Poppins-Regular.ttf") });
-    setUser(user);
-    setGenres(genres);
+    try {
+      const user = await (await getUser())?.data?.whoAmI;
+      const genres = await (await axios.get(url)).data?.genres;
+      setUser(user);
+      setGenres(genres);
 
-    if (user) {
-      const movies = await (await getMovies())?.data?.getMovies?.movies;
-      setMoviesList(movies.map((m: any) => m.tmdbId));
+      if (user) {
+        const movies = await (await getMovies())?.data?.getMovies?.movies;
+        setMoviesList(movies.map((m: any) => m.tmdbId));
+      }
+    } catch (err) {
+      console.log(err);
     }
+
+    await Font.loadAsync({ "Poppins-Regular": require("../../assets/fonts/Poppins-Regular.ttf") });
   };
 
   if (!appIsReady) {

@@ -55,7 +55,7 @@ const Home = ({ navigation }: any) => {
   }, [searchInput, filters]);
 
   if (error || (!loading && !movies)) {
-    console.warn("TMDB API RESPONSE FAILURE");
+    console.warn("TMDB API RESPONSE FAILURE, PLEASE CHECK YOUR NET");
   }
 
   const fetch = async (page: number, append = true) => {
