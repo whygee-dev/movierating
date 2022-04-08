@@ -63,3 +63,5 @@ If your app can't connect to the API, manually put the api uri in `app.json` in 
 ## Disclaimer
 
 ** The project was not tested with macOS / iOS therefore unforeseen bugs can occur, feel free to open issues **
+
+The published expo app (on the releases section) won't work in iOS devices due to Apple limitation.
