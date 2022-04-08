@@ -39,6 +39,7 @@ nestjs .env file
 `jwtSecret=[A_RANDOM_KEY]`
 
 `ENV=DEV`
+
 `TMDB_KEY=[YOUR TMDB API KEY]`
 
 If your app can't connect to the API, manually put the api uri in `app.json` in extra.api field for example: `"extra": { "api": "http://localhost:5000" }`
@@ -50,6 +51,8 @@ If your app can't connect to the API, manually put the api uri in `app.json` in 
 ![App Screenshot](https://i.ibb.co/fNdfGTJ/Screenshot-4.png)
 ![App Screenshot](https://i.ibb.co/KV9vZmk/Screenshot-5.png)
 ![App Screenshot](https://i.ibb.co/Y3q8F3n/Screenshot-6.png)
+![App Screenshot](https://i.ibb.co/Dfb91S1/Screenshot-12.png)
+![App Screenshot](https://i.ibb.co/MhLFkMK/Screenshot-13.png)
 
 ## Roadmap
 
