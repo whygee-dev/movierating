@@ -4,7 +4,7 @@
     "slug": "movie-rating",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/bgless-icon.png",
+    "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "cover",
@@ -19,8 +19,8 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/icon.png",
-        "backgroundColor": "#FFFFFF"
+        "foregroundImage": "./assets/bgless-icon.png",
+        "backgroundColor": "#1a1a40"
       }
     },
     "web": {
